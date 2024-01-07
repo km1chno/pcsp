@@ -1,0 +1,6 @@
+{
+  "dependencies": [
+    "matplotplusplus",
+    "boost-math"
+  ]
+}
