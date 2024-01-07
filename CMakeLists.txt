@@ -17,8 +17,7 @@ include_directories(include)
 ## External dependencies
 
 # # Matplot++
-# find_package(Matplot++ CONFIG REQUIRED)
-# target_link_libraries(main PRIVATE Matplot++::cimg  Matplot++::matplot) 
+find_package(Matplot++ CONFIG REQUIRED)
 
 # Boost
 find_package(Boost)
@@ -27,5 +26,6 @@ include_directories(${Boost_INCLUDE_DIRS})
 # Create the executable
 add_executable(main ${SOURCES})
 
+target_link_libraries(main PRIVATE Matplot++::cimg  Matplot++::matplot) 
 target_link_libraries(main PRIVATE ${Boost_LIBRARIES})
 

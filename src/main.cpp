@@ -1,9 +1,11 @@
 #include "shapley.hpp"
-#include <iostream>
+#include "visualization.hpp"
+
 #include <map>
 #include <vector>
 
 int main() {
+  // Shapley values demo.
   std::map<int, bool> f_vals = {{0b000, 0}, {0b001, 0}, {0b010, 0}, {0b011, 1},
                                 {0b100, 0}, {0b101, 1}, {0b110, 1}, {0b111, 1}};
 
@@ -11,7 +13,6 @@ int main() {
 
   std::vector<double> phi = shapley(f, 3);
 
-  for (auto x : phi)
-    std::cout << x << " ";
-  std::cout << "\n";
+  // Ppf graph demo.
+  draw_ppf(f, 3, 0.01, 100000);
 }
