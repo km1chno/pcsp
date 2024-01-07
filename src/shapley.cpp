@@ -1,6 +1,5 @@
+#include "bool_function.hpp"
 #include "boost/math/special_functions/binomial.hpp"
-#include <functional>
-#include <stdint.h>
 #include <vector>
 
 /**
@@ -8,10 +7,10 @@
  *
  * @complexity O(2^n * n)
  * @param f Boolean function {0, 1}^n -> {0, 1}.
- * @param n Functions arity.
  * @return Vector of length n of coordinates shapley values.
  */
-std::vector<double> shapley(std::function<bool(uint32_t)> f, uint32_t n) {
+std::vector<double> shapley(const bool_function &f) {
+  int n = f.arity;
   std::vector<std::vector<double>> mu(n, std::vector<double>(n + 1, 0));
 
   for (int s = 0; s < (1 << n); s++) {

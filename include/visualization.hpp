@@ -1,6 +1,6 @@
 #pragma once
 
-#include <functional>
+#include "bool_function.hpp"
 #include <stdint.h>
 
 /**
@@ -10,9 +10,7 @@
  *
  * @complexity O(step * precision)
  * @param f The boolean function.
- * @param n Arity of f.
  * @param step The x-axis step.
  * @param precision How many samples for each x should be taken.
  */
-void draw_ppf(std::function<bool(uint32_t)> f, uint32_t n, double step,
-              uint32_t precision);
+void draw_ppf(const bool_function &f, double step, uint32_t precision);

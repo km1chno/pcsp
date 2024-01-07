@@ -1,7 +1,7 @@
+#include "bool_function.hpp"
 #include "random.hpp"
+#include <boost/dynamic_bitset/dynamic_bitset.hpp>
 #include <boost/random.hpp>
-#include <ctime>
-#include <functional>
 #include <matplot/matplot.h>
 #include <matplot/util/common.h>
 #include <stdint.h>
@@ -13,19 +13,16 @@
  *
  * @complexity O(step * precision)
  * @param f The boolean function.
- * @param n Arity of f.
  * @param step The x-axis step.
  * @param precision How many samples for each x should be taken.
  */
-void draw_ppf(std::function<bool(uint32_t)> f, uint32_t n, double step,
-              uint32_t precision) {
-
+void draw_ppf(const bool_function &f, double step, uint32_t precision) {
   std::vector<double> x = matplot::linspace(0, 1, 1.0 / step);
 
   auto eval_ppf = [&](double p) -> double {
     double val = 0;
     for (int i = 0; i < precision; i++) {
-      if (f((Random::random32(p) & ((1 << n) - 1))))
+      if (f((Random::random32(p) & ((1 << f.arity) - 1))))
         val++;
     }
     return val / (double)precision;

@@ -1,3 +1,5 @@
+#include "bool_function.hpp"
+#include "common_functions.hpp"
 #include "shapley.hpp"
 #include "visualization.hpp"
 
@@ -11,8 +13,10 @@ int main() {
 
   auto f = [&](int x) { return f_vals[x]; };
 
-  std::vector<double> phi = shapley(f, 3);
+  bool_function F(f, 3);
+
+  std::vector<double> phi = shapley(F);
 
   // Ppf graph demo.
-  draw_ppf(f, 3, 0.01, 100000);
+  draw_ppf(common_functions::proj(28, 0), 0.01, 100000);
 }
