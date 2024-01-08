@@ -1,16 +1,49 @@
 #pragma once
 
 #include "bool_function.hpp"
-#include <stdint.h>
+#include <matplot/core/axes_type.h>
 
 /**
- * Draws a line plot of P_p(f): [0, 1] -> [0, 1] function for given boolean
- * function f defines as P_p(f)(p) = E[f(x)] where x \in {0, 1}^n and x_i = 1
- * with probability p for each i.
+ * Generic function for composing many subplots in tiled layout.
  *
- * @complexity O(step * precision)
+ * @param plot_functions Sequence of functions plotting their graphs.
+ */
+void draw_tiled_layout_plot(
+    int rows, int cols,
+    std::vector<std::function<void(std::shared_ptr<matplot::axes_type>)>>
+        plot_functions);
+
+/**
+ * Plot epf function for given boolean function of arity n.
+ *
+ * @complexity O(2^n * n * 1/step)
+ * @param tile Matplot tile on which the graph should be plotted.
  * @param f The boolean function.
  * @param step The x-axis step.
- * @param precision How many samples for each x should be taken.
  */
-void draw_ppf(const bool_function &f, double step, uint32_t precision);
+void plot_epf(std::shared_ptr<matplot::axes_type> tile, const bool_function &f,
+              double step);
+
+/**
+ * Plot derivative of epf function for given boolean function of arity n.
+ *
+ * @complexity O(2^n * n * 1/step)
+ * @param tile Matplot tile on which the graph should be plotted.
+ * @param f The boolean function.
+ * @param step The x-axis step.
+ */
+void plot_d_epf(std::shared_ptr<matplot::axes_type> tile,
+                const bool_function &f, double step, std::vector<double> mark);
+
+/**
+ * Plot total influence for bias for given boolean function f of arity n.
+ *
+ * @complexity O(2^n * n * 1/step)
+ * @param tile Matplot tile on which the graph should be plotted.
+ * @param f The boolean function.
+ * @param step The x-axis step.
+ * @param mark Vector of marked x points on the graph. Can be empty.
+ */
+void plot_total_influence(std::shared_ptr<matplot::axes_type> tile,
+                          const bool_function &f, double step,
+                          std::vector<double> mark);
